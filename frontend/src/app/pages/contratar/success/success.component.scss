@@ -1,0 +1,142 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.flow-card {
+  width: min(500px, 100%);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 40px 28px;
+  text-align: center;
+  box-shadow: 0 16px 46px rgba(0, 0, 0, 0.1);
+}
+
+.success-card {
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+.check-circle {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: #A8CF41;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  color: white;
+  animation: scaleIn 0.3s ease forwards;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #006400;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 26px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}
+
+.btn {
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+}
+
+.btn.primary {
+  background: #A8CF41;
+  color: #006400;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.payment-summary {
+  margin: 20px 0;
+  text-align: left;
+}
+
+.payment-summary .row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+
+.success-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.success-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  width: 420px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.icon {
+  font-size: 40px;
+  color: #16a34a;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 25px;
+}
+
+.details {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #16a34a;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}

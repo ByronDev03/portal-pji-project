@@ -1,0 +1,50 @@
+<div class="flow-card">
+  <h2 class="title">Planes</h2>
+  <p class="subtitle">Selecciona tu plan y tu estado para continuar.</p>
+
+  <div class="loading" *ngIf="loading">Cargando planes...</div>
+  <div class="error" *ngIf="error">{{ error }}</div>
+
+  <!-- PLANES -->
+  <div class="plans" *ngIf="!loading && !error">
+    <button
+      class="plan-card"
+      *ngFor="let p of planes"
+      type="button"
+      [class.is-selected]="p.id === selectedProductId"
+      (click)="seleccionarPlan(p)"
+    >
+      <span class="badge" *ngIf="p.popular">Más Popular</span>
+
+      <h3 class="plan-title">{{ p.nombre }}</h3>
+      <p class="plan-desc">{{ p.descripcion }}</p>
+
+      <div class="price">
+        <span class="price-label">desde</span>
+        <span class="price-value">MXN {{ p.precio | number:'1.0-0' }}</span>
+        <span class="price-sub">por año</span>
+      </div>
+
+      <div class="incluye">
+        <strong>Incluye:</strong>
+        <ul>
+          <li *ngFor="let item of p.incluye">{{ item }}</li>
+        </ul>
+        <div class="extras" *ngIf="p.extrasMas">+{{ p.extrasMas }} características más</div>
+      </div>
+    </button>
+  </div>
+
+  <!-- ACCIONES -->
+  <div class="actions">
+    <button class="btn ghost" type="button" (click)="anterior()">Anterior</button>
+
+    <button
+      class="btn primary"
+      type="button"
+      [disabled]="!selectedProductId"
+      (click)="siguiente()">
+      Siguiente
+    </button>
+  </div>
+</div>

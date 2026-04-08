@@ -1,0 +1,104 @@
+.step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 18px; /* mitad del círculo */
+  left: 100%;
+  width: 80px; /* largo de línea */
+  height: 3px;
+  background: #d1d5db;
+}
+
+.step.done:not(:last-child)::after {
+  background: #006400;
+}
+
+.circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+/* Texto debajo */
+.label {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #7a7a7a;
+  font-weight: 600;
+}
+
+/* Paso completado */
+.step.done .circle {
+  background: #7CFC00;
+  color: white;
+}
+
+.step.done .label {
+  color: #000;
+}
+
+/* Paso actual */
+.step.active .circle {
+  background: #006400;
+  color: white;
+}
+
+.step.active .label {
+  color: #000;
+  font-weight: 700;
+}
+
+.flow {
+  min-height: 100dvh;
+  padding: 160px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  /* fondo suave con tintes PJI */
+  background:
+    radial-gradient(
+      1200px 600px at 50% 10%,
+      rgb(144, 238, 144) 0%,
+      rgb(144, 238, 144, 0.6) 40%,
+      rgb(144, 238, 14, 0.25) 65%,
+      rgb(144, 238, 144, 0.1) 80%,
+    ),
+    linear-gradient(
+      180deg,
+      rgb(144, 238, 144), 0%,
+      rgb(144, 238, 144, 0.35) 60%,
+      rgb(144, 238, 144, 0.15) 85%,
+      rgb(144, 238, 144, 0.08) 100%,
+    );
+  
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;   
+  margin-bottom: 40px;
+}
+
+.flow-card {
+  margin-top: 25px;
+}

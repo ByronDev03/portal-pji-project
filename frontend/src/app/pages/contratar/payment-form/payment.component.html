@@ -1,0 +1,112 @@
+<div class="flow">
+  <div class="flow-card">
+    <h2 class="title">Pago</h2>
+    <p class="subtitle">Completa el pago para continuar.</p>
+
+    <div class="plan-summary">
+      <div class="plan-label">Plan Seleccionado</div>
+      <div class="plan-value">{{ productName }}</div>
+    </div>
+
+      <div class="section-title">Tarjeta de crédito o débito</div>
+
+      <form class="grid" [formGroup]="form">
+        <div class="field">
+          <label>Nombre del titular <span> * </span></label>
+          <input type="text" placeholder="Ingresa tu nombre" formControlName="titular" />
+          <small class="error" *ngIf="form.get('titular')?.touched && form.get('titular')?.invalid">
+            Ingrese un nombre valido
+          </small>
+        </div>
+
+        <div class="field card-field">
+          <label>Número de tarjeta <span>*</span></label>
+
+          <div class="card-input-wrapper">
+            <input
+              type="text"
+              inputmode="numeric"
+              placeholder="0000 0000 0000 0000"
+              formControlName="cardNumber"
+              (input)="formatCardNumber($event)"
+              [attr.maxlength]="cardType === 'amex' ? 17 : 19"
+            />
+
+            <img *ngIf="cardType === 'visa'" 
+                  src="assets/img/visa.png" 
+                  class="card-logo" />
+
+            <img *ngIf="cardType === 'mastercard'" 
+                  src="assets/img/mastercard.png" 
+                  class="card-logo" />
+
+            <img *ngIf="cardType === 'amex'" 
+                  src="assets/img/amex.png" 
+                  class="card-logo" />
+          </div>
+
+          <small class="error"
+            *ngIf="cardNumberCtrl?.touched && cardNumberCtrl?.invalid">
+            El número de tarjeta es obligatorio
+          </small>
+        </div>
+
+        <div class="field">
+          <label>Fecha de expiración <span>*</span></label>
+
+          <input
+            type="text"
+            inputmode="numeric"
+            placeholder="MM/YY"
+            formControlName="exp"
+            (input)="formatExpiry($event)"
+            maxlength="5"
+          />
+
+          <small class="error" *ngIf="expCtrl?.touched && expCtrl?.errors">
+
+            <span *ngIf="expCtrl?.errors?.['required']">
+              La fecha es obligatoria
+            </span>
+
+            <span *ngIf="expCtrl?.errors?.['invalidMonth']">
+              Mes inválido
+            </span>
+
+            <span *ngIf="expCtrl?.errors?.['expired']">
+              La tarjeta está vencida
+            </span>
+          </small>
+        </div>
+
+        <div class="field">
+          <label>Código de verificación <span> * </span></label>
+          <input type="text" inputmode="numeric" placeholder="{{ cvvLength === 4 ? '1234' : '123' }}" formControlName="cvv" [attr.maxlength]="cvvLength"/>
+          <small class="error" *ngIf="form.get('cvv')?.touched && form.get('cvv')?.invalid">
+            No debe de contener más de tres digitos.
+          </small>
+        </div>
+      </form>
+
+    <button
+      class="btn primary pay-btn"
+      (click)="pay()"
+      [disabled]="isLoading || paymentSuccess">
+
+      <span *ngIf="!isLoading && !paymentSuccess">
+        Pagar
+      </span>
+
+      <span *ngIf="isLoading" class="spinner"></span>
+
+      <span *ngIf="paymentSuccess" class="success-check">
+        ✔ Pago exitoso
+      </span>
+    </button>
+
+    <div class="actions">
+      <button class="btn ghost" (click)="back()">Anterior</button>
+      <button class="btn primary" disabled>Siguiente</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,110 @@
+$bg: #184523;                     // Color de fondo principal de la sección FAQ
+$text: #f5f5f5;                   // Color de texto general (blanco suave)
+$accent: #a4c639;                 // Color de acento (verde claro) para títulos/iconos
+$border: rgba(255, 255, 255, 0.2); // Color semitransparente para líneas divisorias
+
+.faq {
+  background-color: $bg;          // Fondo verde oscuro para toda la sección FAQ
+  color: $text;                   // Texto en color claro por defecto
+  text-align: center;             // Centra el texto por defecto dentro de la sección
+  padding: 4rem 1.5rem;           // Espacio interno: 4rem arriba/abajo, 1.5rem lados
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                                  // Tipografía base de la sección
+
+  &__title {
+    max-width: 960px;             // Ancho máximo del título
+    margin: 0 auto 2.5rem;        // Centrado horizontal con margen inferior
+    font-size: 2.4rem;            // Tamaño grande para el título
+    font-weight: 700;             // Negrita
+
+    span {
+      color: $accent;             // Palabra "frecuentes" en color de acento
+    }
+  }
+
+  &__list {
+    max-width: 960px;             // Ancho máximo del bloque de preguntas
+    margin: 0 auto;               // Centrado horizontal
+  }
+
+  &__item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 0 16px;
+    margin-bottom: 12px;
+    transition: all 0,25s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08); 
+    }
+  }
+
+  /* botón pregunta */
+  &__question {
+    padding: 1.4rem 0;             // Espacio vertical interno del botón
+    width: 100%;                   // Ocupa todo el ancho del contenedor
+    display: flex;                 // Distribuye pregunta e icono en una línea
+    align-items: center;           // Centra verticalmente el contenido
+    justify-content: space-between;// Deja la pregunta a la izquierda y el icono a la derecha
+    background: none;              // Sin fondo propio (usa el del item)
+    border: 0;                     // Sin borde de botón por defecto
+    color: inherit;                // Usa el color de texto heredado
+    cursor: pointer;               // Cursor de mano para indicar que es clicable
+    font-size: 1.08rem;            // Tamaño de fuente de la pregunta
+    font-weight: 600;              // Semi-negrita
+    text-align: left;              // Alinea el texto a la izquierda
+
+    span:first-child {
+      flex: 1 1 auto;              // El texto de la pregunta ocupa todo el espacio disponible
+    }
+  }
+
+  &__icon {
+    font-size: 1.5rem;             // Tamaño del icono (+ / chevron)
+    color: $accent;                // Icono en color de acento verde
+    display: inline-flex;          // Permite centrar el icono dentro de su caja
+    align-items: center;           // Centra verticalmente el icono
+    justify-content: center;       // Centra horizontalmente el icono
+  }
+
+  &__icon {
+    transition: transform 0.3s ease;
+  }
+
+  &__item--open &__icon {
+    transform: rotate(180deg);
+  }
+
+  &__item:active {
+    transform: scale(0.98);
+  }
+
+  &__answer {
+    margin: 0;                     // Sin margen extra alrededor
+    padding: 0 0 1.2rem;           // Espacio inferior para separar de la siguiente pregunta
+    font-size: 1.07rem;            // Tamaño de fuente de la respuesta
+    line-height: 1.6;              // Altura de línea cómoda para lectura
+    max-width: 78ch;               // Limita el ancho para que las líneas no sean muy largas
+    text-align: left;              // Respuesta alineada a la izquierda
+    cursor: pointer;               // Cursor de mano (opcional, por consistencia visual)
+
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition:
+      max-height 0.35s ease,
+      opacity 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  &__answer.open {
+    max-height: 200px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  &__item--open {
+    background: rgba(255, 255, 255, 0.08);
+  }
+}

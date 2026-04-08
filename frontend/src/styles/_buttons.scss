@@ -1,0 +1,32 @@
+@use './variables' as *;
+
+.btn {
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 900;
+  border: none;
+  transition: transform 0.06s ease, filter 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn.primary {
+  background: $primary-green;
+  color: $dark-green;
+  box-shadow: 0 10px 20px rgba(168, 207, 65, 0.22);
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(0,0,0,.16);
+}
+
+.btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  box-shadow: none;
+}

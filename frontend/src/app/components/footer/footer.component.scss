@@ -1,0 +1,187 @@
+
+@use "sass:color";
+
+$primary-green: #92B428;
+$color-accent: $primary-green;
+
+/* Fondo gris muy claro y tipografía limpia */
+.band--light { 
+  background: #f4f7f8; /* color de fondo suave para bandas/secciones claras */
+}
+
+/* Grid principal del footer */
+.footer { 
+  color: #2b2b2b;                       /* color de texto por defecto */
+  background: #fff;                     /* fondo blanco del bloque footer */
+  margin-top: clamp(16px, 3vw, 40px);     /* separación superior responsiva */
+}
+.footer__grid {
+  display: grid;                           /* layout en grid */
+  gap: 24px;                               /* separación entre columnas/filas */
+  padding: clamp(24px, 3vw, 42px) 0 12px;  /* padding vertical responsivo */
+  grid-template-columns: 1fr;              /* 1 columna en móviles */
+}
+
+@media (min-width: 780px) {
+  .footer__grid { grid-template-columns: 1fr 1fr 1fr;    /* 3 columnas a partir de 780px */
+  align-items: start; }                                  /* alinea el contenido al inicio verticalmente */
+}
+
+/* Títulos de columna del footer */
+.footer__title {
+  margin: 0 0 12px;                              /* sin margen arriba, 12px abajo */
+  letter-spacing: .2px;                          /* ligera separación entre letras */
+  color: #6aa232;                              /* verde de acento */
+  font-family: Arial, Helvetica, sans-serif;     /* tipografía */
+}
+
+/* Navegación (lista de links) */
+.footer__links { 
+  list-style: none;                                 /* quita viñetas */
+  margin: 0; 
+  padding: 0; 
+  font-family: Arial, Helvetica, sans-serif;        /* tipografía */
+}
+
+.footer__links li { 
+  margin: 10px 0;                                    /* espacio vertical entre ítems */
+  font-family: Arial, Helvetica, sans-serif;         /* tipografía */
+}
+
+.footer__links a {
+  color: #6c757d;                              /* color del enlace en estado normal */
+  text-decoration: none;                         /* sin subrayado */
+  font-family: Arial, Helvetica, sans-serif;     /* tipografía */
+}
+
+.footer__links a:hover { 
+  color: #92B428;     /* color en hover (verde) */
+}
+
+/* Contacto (lista con ícono + texto) */
+.footer__contact { 
+  list-style: none;                                 /* quita viñetas */
+  margin: 0; 
+  padding: 0; 
+  font-family: Arial, Helvetica, sans-serif;       /* tipografía */
+  
+}
+
+.footer__contact li {
+  display: flex;            /* ícono + texto alineados en fila */
+  align-items: center; 
+  gap: 10px;                /* separación entre ícono y texto */
+  margin: 10px 0;           /* espacio vertical entre ítems */
+}
+
+.footer__contact a {
+  color: #6c757d;           /* color del texto de contacto */
+  text-decoration: none;      /* sin subrayado */
+}
+
+.footer__contact a:hover { 
+  color: #92B428;     /* color en hover (verde) */
+}
+
+/* Contenedor de íconos circulares */
+.ico {
+  display: inline-flex;        /* centra el icono en su contenedor */
+  align-items: center; 
+  justify-content: center;
+  width: auto; height: auto;   /* tamaño del círculo */
+  border-radius: 0;          /* hace el contenedor redondo */
+  background: transparent; 
+  padding: 0;    
+  color: #6c757d;            /* color de ícono si fuera un SVG con currentColor */
+}
+
+.ico svg {
+  width: 20px;   // ajusta al tamaño que quieras
+  height: 20px;
+}
+
+/* Marca + redes (columna de branding) */
+.footer__brand {
+  display: grid; 
+  grid-template-columns: auto; 
+  gap: 14px; 
+  width: auto;   
+  justify-items: center;
+}
+
+/* Contenedor del logo (cuadro) */
+.footer__logo { 
+  width: 110px;               /* ancho fijo del bloque del logo */
+  height: 110px;              /* alto fijo para mantener proporción cuadrada */
+  border-radius: 12px;        /* esquinas redondeadas del contenedor */
+  display: grid; 
+  place-items: center;        /* centra la imagen en ambos ejes */
+  overflow: hidden;           /* recorta si la imagen se sale del cuadro */
+}
+
+.footer__logo img {
+  max-width: 100%;            /* nunca excede el contenedor horizontalmente */
+  max-height: 100%;           /* nunca excede verticalmente */
+  width: 65%;                /* fuerza a llenar ancho del contenedor */
+  height: 65%;               /* fuerza a llenar alto del contenedor */
+  object-fit: contain;        /* mantiene la imagen completa dentro del cuadro sin recortar */
+}
+
+/* Redes sociales (fila de iconos circulares) */
+.footer__social {
+  display: flex; 
+  gap: 14px;                  /* separación entre íconos */
+  list-style: none; 
+  margin: 6px 0 0; 
+  padding: 0;
+}
+
+.footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #6c757d;      // color de icono (texto) = color del SVG
+  transition: transform .15s ease;
+}
+
+.footer__social-link svg {
+    width: 30px;
+    height: 30px;
+}
+
+.footer__social-link:hover {
+  color: #92B428;     // solo cambia el color del icono
+  transform: translateY(-2px);
+}
+
+/* Franja inferior (copyright, legales) */
+.footer__bottom {
+  margin-top: 20px;                      /* separación respecto al grid */
+  padding: 14px 0;                       /* padding vertical */
+  font-size: .95rem;                     /* tamaño de texto ligeramente menor */
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: justify !important;
+  color: #6c757d;
+
+  p{
+    line-height: 1.7;
+  }
+  
+  a{
+    color: $color-accent;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: color.adjust($color-accent, $lightness: -10%);
+    }
+  }
+}
+
+/* Contenedor reutilizable (si no lo tienes global) */
+.container { 
+  max-width: 1100px;  /* ancho máximo del contenido */
+  margin: 0 auto;     /* centra horizontalmente */
+  padding: 0 16px;    /* respiración lateral */
+}

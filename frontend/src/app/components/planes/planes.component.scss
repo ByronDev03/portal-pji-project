@@ -1,0 +1,335 @@
+/* El host del componente se comporta como un bloque */
+:host { 
+  display: block; 
+}
+
+/* Variables de color y sombra para reutilizar en el diseño */
+$primary-green: #A8CF41;          // verde principal de marca
+$dark-green: #1D4C2C;             // verde oscuro de fondo / texto
+$green: #9bd345;                  // verde claro (botón estándar)
+$green-dark: #0f4b2d;             // verde oscuro (botón plan popular)
+$blue: #1862d9;                   // azul para el precio
+$shadow: 0 8px 24px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04); // sombra base tarjetas
+
+/* Contenedor general para centrar contenido y limitar ancho */
+.container { 
+  max-width: 1100px; 
+  margin: 0 auto; 
+  padding: 0 16px;
+  font-family: Arial, Helvetica, sans-serif; 
+}
+
+/* Sección de planes (padding vertical y fondo lila muy claro) */
+.planes { 
+  padding: clamp(28px, 6vw, 56px) 0; 
+  background: #F8F8FF; 
+}
+
+/* Título de la sección */
+.title {
+  margin: 0;
+  text-align: center;
+  letter-spacing: .4px;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: #1a1f26;
+}
+
+/* Texto en verde de acento dentro del título */
+.accent { 
+  color: #89c53a; 
+}
+
+/* Subtítulo debajo del título principal */
+.subtitle {
+  text-align: center;
+  color: #6c7a87;
+  margin: 6px auto 24px;
+}
+
+/* Grid que contiene las tarjetas de planes */
+.grid {
+  display: grid;
+  gap: clamp(16px, 3vw, 28px);             // espacio entre columnas/filas
+  grid-template-columns: repeat(1, minmax(0, 1fr)); // una columna en móvil
+  align-items: stretch;
+}
+
+/* A partir de 860px, mostramos 3 columnas */
+@media (min-width: 860px) {
+  .grid { 
+    grid-template-columns: repeat(3, 1fr); 
+  }
+}
+
+/* Contenedor externo de cada tarjeta */
+.card {
+  border-radius: 16px;
+  background: transparent;
+  display: flex;
+}
+
+/* Contenedor interno de la tarjeta: fondo blanco, sombra y layout vertical */
+.card__inner {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: $shadow;
+  padding: clamp(18px, 3.4vw, 28px);
+  min-height: 560px;      /* garantiza altura similar entre tarjetas */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+}
+
+/* Badge de “Más Popular” que va flotando arriba, centrado */
+.badge {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffc21a;
+  color: #222;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 0 rgba(0,0,0,.07);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Cuando una tarjeta es popular, damos más margen al título (debajo del badge) */
+.popular .card__title { 
+  margin-top: 28px; 
+}
+
+/* Título del plan dentro de la card */
+.card__title {
+  margin: 0 0 8px 0;
+  font-size: clamp(1.3rem, 2.2vw, 2rem);
+  color: #1a1f26;
+}
+
+/* Descripción corta del plan */
+.card__desc {
+  margin: 0 0 6px 0;
+  color: #4b5563;
+}
+
+/* Bloque de precio (contiene monto y texto “por mes”) */
+.price {
+  margin: 6px 0 8px;
+
+  /* Estilos del monto (cantidad MXN) */
+  .amount {
+    color: $blue;
+    font-weight: 700;
+    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  /* Texto que indica el periodo (por mes) */
+  .per {
+    color: #7a8794;
+    font-size: .95rem;
+  }
+
+  .price-from {
+    color: #7a8794;
+    font-size: .95rem;
+    display: flex;
+  }
+}
+
+/* Título de secciones internas de la card (Incluye, Complementos, etc.) */
+.section-title {
+  margin-top: 8px;
+  font-weight: 800;
+  color: #1e2a32;
+}
+
+/* Variante de título (color verde) para complementos */
+.section-title.alt { 
+  color: #2e7d32; 
+}
+
+/* Lista de características incluidas */
+.list {
+  padding-left: 1.2rem;
+  margin: 6px 0 0;
+  color: #2a3139;
+
+  li { 
+    margin: 6px 0; 
+  }
+
+  /* Línea con “+X características más” sin viñeta y alineada a la izquierda */
+  .more { 
+    color: #6b7280; 
+    list-style: none; 
+    margin-left: -1.2rem; 
+  }
+}
+
+/* Lista de complementos (sin viñetas) */
+.extras {
+  list-style: none;
+  padding-left: 0;
+  margin: 6px 0 0;
+
+  li { 
+    margin: 6px 0; 
+    color: #1a1f26;
+  }
+}
+
+/* Botón principal de la tarjeta (Seleccionar plan) */
+.btn {
+  margin-top: auto;                        // empuja el botón al final de la card
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  width: 100%;
+  height: 54px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 9999px;                   // botón tipo “pastilla”
+  background: $green;
+  color: #fff;
+  box-shadow: 0 6px 0 rgba(0,0,0,.05), 0 1px 8px rgba(0,0,0,.08);
+  cursor: pointer;
+  transition: transform .05s ease, filter .15s ease;
+}
+
+/* Efecto hover del botón claro */
+.btn:hover { 
+  filter: brightness(.98); 
+  box-shadow: 0 12px 28px rgba(155,211,69,.28), 0 3px 8px rgba(0,0,0,.05);
+}
+
+/* Efecto al hacer click (ligero desplazamiento hacia abajo) */
+.btn:active { 
+  transform: translateY(1px); 
+}
+
+/* Variante de botón oscuro (para plan “Más Popular”) */
+.btn--dark {
+  background: #0f6b3a;
+  color: #e8f6ed;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: .2px;
+  text-transform: none;
+}
+
+/* Flecha decorativa dentro del botón */
+.arrow {
+  font-size: 1.1rem;
+  line-height: 1;
+  display: inline-block;
+  transform: translateX(0);
+  transition: transform .2s ease;
+}
+
+/* Cuando se hace hover en el botón, la flecha se mueve hacia la derecha */
+.btn:hover .arrow { 
+  transform: translateX(4px);
+}
+
+/* === Botones iguales en las 3 cards === */
+/* Normaliza los estilos de los botones dentro de las tarjetas */
+.card .btn,
+.card .btn--dark {
+  /* layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  width: 100%;
+  height: 54px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 9999px;
+
+  /* tipografía */
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: .2px;
+  text-transform: none;
+  color: #fff;
+
+  /* sombras y transición */
+  box-shadow: 0 10px 24px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+  transition: transform .06s ease, filter .15s ease, box-shadow .15s ease;
+}
+
+/* Fondo del botón normal dentro de card */
+.card .btn {        
+  background: $green;        // botón verde claro
+}
+
+/* Fondo del botón oscuro (plan destacado) */
+.card .btn--dark  {  
+  background: $green-dark;   // botón verde oscuro
+}
+
+/* Hover del botón claro dentro de la card */
+.card .btn:hover{
+  box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  background-color: #0f4b2d;
+  color: $primary-green;
+}
+
+/* Hover del botón oscuro dentro de la card */
+.card .btn--dark:hover {
+  box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  background-color: #9bc23a;
+  color: $dark-green;
+}
+
+/* Estado active de los botones (se mantiene un ligero desplazamiento) */
+.card .btn:active,
+.card .btn--dark:active { 
+  transform: translateY(-2px); 
+}
+
+/* Flecha con desplazamiento suave dentro de los botones en cards */
+.card .btn .arrow,
+.card .btn--dark .arrow {
+  font-size: 1.1rem;
+  line-height: 1;
+  display: inline-block;
+  transform: translateX(0);
+  transition: transform .2s ease;
+}
+
+/* Flecha se desplaza más al hacer hover en el botón */
+.card .btn:hover .arrow,
+.card .btn--dark:hover .arrow { 
+  transform: translateX(4px); 
+}
+
+/* --- Efecto “flotar” y resaltar en hover --- */
+
+/* Añadimos transición a la card para suavizar el efecto hover */
+.card__inner {
+  transition: transform .28s ease, box-shadow .28s ease, filter .28s ease, opacity .28s ease;
+  will-change: transform, box-shadow; // sugerencia al navegador para optimizar
+}
+
+/* Cuando se hace hover sobre una card, esta “flota” y toma una sombra más marcada */
+.card:hover .card__inner {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,.14), 0 8px 18px rgba(0,0,0,.06);
+}
+
+/* Mientras el mouse está sobre el grid, las cards no activas se atenúan levemente */
+.grid:hover .card:not(:hover) .card__inner {
+  opacity: .90;                    // pequeña reducción de opacidad
+  filter: brightness(.98);         // leve aclarado
+  box-shadow: 0 8px 24px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04); // vuelve a sombra base
+}

@@ -1,0 +1,47 @@
+<!-- Sección de Preguntas Frecuentes, con id para poder anclar desde el menú -->
+<section class="faq" id="faq">
+  <!-- Título principal de la sección -->
+  <h2 class="faq__title">
+    <!-- Texto estático del título -->
+    Preguntas <span>frecuentes</span>
+    <!-- El <span> permite aplicar un color/estilo distinto a la palabra "frecuentes" -->
+  </h2>
+
+  <!-- Contenedor de toda la lista de preguntas -->
+  <div class="faq__list">
+    <!-- Item individual del acordeón.
+         *ngFor recorre el arreglo 'faqs' del componente.
+         'faq' es el elemento actual y 'i' es el índice. -->
+    <!-- Aplica la clase 'faq__item--open' solo cuando openIndex === i
+           (es decir, cuando este item está abierto). -->     
+    <div
+      class="faq__item"
+      *ngFor="let faq of faqs; let i = index"
+      [class.faq__item--open]="openIndex === i"
+    >
+      <!-- Botón que muestra la pregunta y controla abrir/cerrar el item -->
+      <button type="button" class="faq__question" (click)="toggle(i)">
+        <!-- Texto de la pregunta, tomado del objeto faq.pregunta -->
+        <span>
+          {{ faq.pregunta }}
+        </span>
+        
+        <!-- Icono de Bootstrap Icons.
+             Siempre tiene las clases 'faq__icon bi'.
+             ngClass elige entre:
+               - 'bi-chevron-compact-down' si el item está abierto
+               - 'bi-plus' si el item está cerrado -->
+        <i class="faq__icon bi"
+          [ngClass]="openIndex === i ? 'bi-chevron-compact-down' : 'bi-plus'">
+        </i>
+      </button>
+
+      <!-- Contenedor de la respuesta.
+           Solo se muestra cuando openIndex === i gracias a *ngIf -->
+      <div class="faq__answer" [class.open]="openIndex === i">
+        <!-- Texto de la respuesta, tomado del objeto faq.respuesta -->
+        {{ faq.respuesta }}
+      </div>
+    </div>
+  </div>
+</section>

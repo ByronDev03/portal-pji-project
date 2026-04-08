@@ -1,0 +1,82 @@
+<!-- Sección de planes, con id para ancla desde el menú -->
+<section class="planes" id="planes">
+  <!-- Contenedor centrado con ancho máximo -->
+  <div class="container">
+    <!-- Cabecera de la sección de planes -->
+    <header class="planes__head">
+      <!-- Título principal de la sección -->
+      <h2 id="planes-title" class="title">
+        Nuestras <span class="accent">pólizas</span>
+      </h2>
+      <!-- Subtítulo descriptivo -->
+      <p class="subtitle">Planes claros, sin sorpresas.</p>
+    </header>
+
+    <!-- Mnesaje de carga -->
+    <p *ngIf="loading" class="planes__loading">Cargando planes...</p>
+
+    <p *ngIf="error" class="planes__error">{{ error }}</p>
+
+    <!-- Grid que contiene todas las tarjetas de planes -->
+    <div class="grid" *ngIf="!loading && !error">
+      <!-- Tarjeta de plan, repetida por cada elemento de 'planes' en el componente -->
+      <article class="card" *ngFor="let p of planes; let i = index">
+        <!-- Contenedor interno de la tarjeta; si p.popular es true, agrega la clase 'popular' -->
+        <div class="card__inner" [class.popular]="p.popular">
+          <!-- Badge de “Más Popular”, solo se muestra si p.popular es true -->
+          <div class="badge" *ngIf="p.popular">Más Popular</div>
+
+          <!-- Título del plan (nombre del plan) -->
+          <h3 class="card__title">{{ p.nombre }}</h3>
+
+          <!-- Descripción corta del plan -->
+          <p class="card__desc">{{ p.descripcion }}</p>
+
+          <!-- Bloque de precio -->
+          <div class="price">
+            <!-- Texto apartir de que cantidad -->
+            <div class="price-from"> desde </div>
+            <!-- Monto, formateado como número con 3 decimales (MXN 299.000, etc.) -->
+            <div class="amount"> MXN {{ p.precio | number:'1.0-0' }}</div>
+            <!-- Texto de periodo (por mes, anual, etc.) -->
+            <div class="per">por año</div>
+          </div>
+
+          <!-- Título de la sección “Incluye” dentro de la tarjeta -->
+          <div class="section-title">Incluye:</div>
+          <!-- Lista de características incluidas en el plan -->
+          <ul class="list">
+            <!-- Recorre el arreglo p.incluye y pinta cada item como <li> -->
+            <li *ngFor="let item of p.incluye">{{ item }}</li>
+            <!-- Ítem opcional: si p.extrasMas existe, muestra texto tipo “+3 características más” -->
+            <li *ngIf="p.extrasMas" class="more">+{{ p.extrasMas }} características más</li>
+          </ul>
+
+          <!-- Bloque de complementos opcionales: solo se muestra si hay complementos -->
+          <ng-container *ngIf="p.complementos?.length">
+            <!-- Título de la sección de complementos -->
+            <div class="section-title alt">Complementos disponibles:</div>
+            <!-- Lista de complementos -->
+            <ul class="extras">
+              <!-- Recorre p.complementos y muestra cada complemento como <li> -->
+              <li *ngFor="let c of p.complementos">{{ c }}</li>
+            </ul>
+          </ng-container>
+
+          <!-- Botón de llamada a la acción (CTA) para seleccionar el plan -->
+          <button
+            class="btn"
+            [class.btn--dark]="p.btnColor==='dark'" 
+            type="button" 
+            (click)="seleccionarPlan(p)"
+            [attr.aria-label]="'Seleccionar ' + p.nombre">
+            Seleccionar plan
+            <!-- Flecha decorativa; aria-hidden indica que no se lee en lectores de pantalla -->
+            <span class="arrow" aria-hidden="true">→</span>
+          </button>
+
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

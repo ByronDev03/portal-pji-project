@@ -1,0 +1,46 @@
+//@import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* Reset básico para quitar el marco del body */
+html, body {
+  height: 100%;
+  margin: 0;         /* <-- esto elimina el “marco” */
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* asegura que el root ocupa todo */
+app-root {
+  display: block;
+  min-height: 100%;
+}
+
+/* 1) Scroll suave para TODA la página */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 2) Compensar el header fijo para que el título no quede tapado */
+:root {
+  /* Altura estimada de tu header/píldora. Ajusta a tu caso real. */
+  --header-offset: 90px;
+}
+
+/* Aplica la separación al anclar a un id */
+#planes,
+#proceso,
+#faq {
+  scroll-margin-top: var(--header-offset);
+}
+
+/* Si en móvil la barra es un poco más baja/alta, ajusta */
+@media (max-width: 900px) {
+  :root {
+    --header-offset: 72px; /* o el valor que corresponda a tu header en móvil */
+  }
+}
+

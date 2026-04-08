@@ -1,0 +1,235 @@
+:host {
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Colores PJI */
+$primary-green: #A8CF41;
+$dark-green: #006400;
+$white: #FFFFFF;
+$light-gray: #F9F9F9;
+
+$text: #1f2937;
+$muted: rgba(31, 41, 55, 0.65);
+
+/* Contenedor general */
+.flow {
+  min-height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1rem;
+
+  /* fondo suave con tintes PJI */
+  background:
+    radial-gradient(
+      1200px 600px at 50% 10%,
+      rgb(144, 238, 144) 0%,
+      rgb(144, 238, 144, 0.6) 40%,
+      rgb(144, 238, 14, 0.25) 65%,
+      rgb(144, 238, 144, 0.1) 80%,
+    ),
+    linear-gradient(
+      180deg,
+      rgb(144, 238, 144), 0%,
+      rgb(144, 238, 144, 0.35) 60%,
+      rgb(144, 238, 144, 0.15) 85%,
+      rgb(144, 238, 144, 0.08) 100%,
+    );
+  
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Tarjeta principal */
+.card {
+  width: min(980px, 100%); /* un poco más ancho para 3 cards */
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.08);
+}
+
+.title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #006400;
+}
+
+.muted { opacity: .7; margin-top: 6px; }
+
+/* ====== PLANES (3 cards) ====== */
+.plans {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 980px) {
+  .plans { grid-template-columns: 1fr; }
+}
+
+.plan-card {
+  position: relative;
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.95);
+  border-radius: 14px;
+  padding: 18px;
+  cursor: pointer;
+  text-align: left;
+
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0,0,0,.10);
+}
+
+.plan-card.is-selected {
+  border-color: #69b327;
+  box-shadow: 0 0 0 3px rgba(105,179,39,.18), 0 16px 34px rgba(0,0,0,.10);
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: #a6d638;
+  color: #184523;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+.plan-title {
+  margin: 6px 0 6px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #1f1f1f;
+}
+
+.plan-desc {
+  margin: 0 0 12px;
+  opacity: .75;
+  line-height: 1.35;
+  min-height: 44px;
+}
+
+/* Precio estilo “desde MXN 3,500 por año” en línea (no azul) */
+.price {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  row-gap: 2px;
+  margin: 10px 0 12px;
+}
+
+.price-label {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  font-size: 14px;
+  opacity: .7;
+}
+
+.price-value {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  font-size: 24px;
+  font-weight: 900;
+  color: #1f1f1f; /* <- ya no azul */
+}
+
+.price-sub {
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+  font-size: 14px;
+  opacity: .7;
+}
+
+/* Incluye */
+.incluye strong {
+  display: block;
+  margin: 10px 0 8px;
+}
+
+.incluye ul {
+  margin: 0;
+  padding-left: 18px;
+  opacity: .85;
+}
+
+.incluye li {
+  margin: 6px 0;
+  line-height: 1.25;
+}
+
+.extras {
+  margin-top: 10px;
+  font-style: italic;
+  opacity: .7;
+}
+
+/* Hint */
+.hint,
+.warn {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 173, 0, 0.12);
+  border: 1px solid rgba(255, 173, 0, 0.28);
+}
+
+/* Acciones */
+.actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.btn {
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 900;
+  border: none;
+  transition: transform 0.06s ease, filter 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  color: rgba(31, 41, 55, 0.85);
+}
+
+.btn.ghost:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.btn.primary {
+  background: $primary-green;
+  color: $dark-green;
+  box-shadow: 0 10px 20px rgba(168, 207, 65, 0.22);
+}
+
+.btn.primary:hover {
+  filter: brightness(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}

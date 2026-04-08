@@ -1,0 +1,33 @@
+<header class="header" [class.compact]="scrolled">
+  <div class="header-inner">
+
+    <div class="logo">
+      <a href="#top">
+        <img src="assets/img/logo-pji.png" alt="Logo PJI">
+      </a>
+    </div>
+
+    <nav class="nav-links">
+      <a href="#proceso">¿CÓMO FUNCIONA?</a>
+      <a href="#planes">PÓLIZAS</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <button class="menu-toggle" (click)="toggleMenu()">
+      <i class="bi" [ngClass]="menuOpen ? 'bi-x-lg' : 'bi-list'"></i>
+    </button>
+
+  </div>
+</header>
+
+<div class="overlay" *ngIf="menuOpen" (click)="toggleMenu()"></div>
+
+<nav class="side-menu" [class.open]="menuOpen">
+
+  <a href="#proceso" (click)="toggleMenu()">¿CÓMO FUNCIONA?</a>
+  <a href="#planes" (click)="toggleMenu()">PÓLIZAS</a>
+  <a href="#faq" (click)="toggleMenu()">FAQ</a>
+
+</nav>
+
+<div class="header-spacer"></div>

@@ -1,0 +1,22 @@
+<div class="flow">
+  <!-- STEPPER -->
+  <div class="stepper" *ngIf="!isSuccessRoute()">
+    <div
+      class="step"
+      *ngFor="let s of steps; let i = index"
+      [class.done]="currentStep > i + 1"
+      [class.active]="currentStep === i + 1">
+      <div class="circle">
+        {{ currentStep > i + 1 ? '✓' : i + 1 }}
+      </div>
+      <div class="label">{{ s }}</div>
+    </div>
+  </div>
+
+  <!-- CARD -->
+  <div class="flow-card"
+     [@fadeAnimation]="prepareRoute(outlet)">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
+
+</div>

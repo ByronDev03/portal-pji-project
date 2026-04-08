@@ -1,0 +1,260 @@
+:host {
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.flow {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-bottom: 20px;
+}
+
+/* Colores */
+$primary-green: #A8CF41;
+$dark-green: #006400;
+$light-gray: #F9F9F9;
+
+$text: #1f2937;
+$muted: rgba(31, 41, 55, 0.65);
+
+.flow-card {
+  width: min(920px, 100%);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  padding: 10px 20px 14px;
+  box-shadow: 0 16px 46px rgba(0, 0, 0, 0.10);
+  backdrop-filter: blur(6px);
+}
+
+.title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 800;
+  color: $dark-green;
+}
+
+.subtitle {
+  margin: 0 0 10px;
+  color: $muted;
+  line-height: 1.35;
+  font-size: 13.5px;
+}
+
+.grid {
+  margin-top: 6px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
+}
+
+@media (max-width: 740px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field label {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: $dark-green;
+  margin-bottom: 6px;
+}
+
+.field label span {
+  color: #e11d48;
+  font-weight: 900;
+}
+
+.field input {
+  width: 100%;
+  height: 44px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: $light-gray;
+  outline: none;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+  font-size: 14px;
+  color: $text;
+}
+
+.field input::placeholder {
+  color: rgba(31, 41, 55, 0.38);
+}
+
+.field input:focus {
+  border-color: rgba(168, 207, 65, 0.75);
+  box-shadow: 0 0 0 4px rgba(168, 207, 65, 0.20);
+}
+
+.field input.ng-touched.ng-invalid {
+  border-color: rgba(225, 29, 72, 0.60);
+  box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.12);
+}
+
+/*.field.full {
+  grid-column: span 2;
+}*/
+
+.error {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #e11d48;
+  line-height: 1.2;
+}
+
+.actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.btn {
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 900;
+  border: none;
+  transition: transform 0.06s ease, filter 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  color: rgba(31, 41, 55, 0.85);
+}
+
+.btn.ghost:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.btn.primary {
+  background: $primary-green;
+  color: $dark-green;
+  box-shadow: 0 10px 20px rgba(168, 207, 65, 0.22);
+}
+
+.btn.primary:hover {
+  filter: brightness(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.pay-btn {
+  width: 100%;
+  height: 44px;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.section-title {
+  margin: 10px 0 6px;
+  font-weight: 800;
+  color: $dark-green;
+  font-size: 18px;
+}
+
+.plan-summary {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.plan-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(31, 41, 55, 0.6);
+  margin-bottom: 4px;
+}
+
+.plan-value {
+  font-size: 15px;
+  font-weight: 800;
+  color:black;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid rgba(255,255,255,0.4);
+  border-top: 3px solid $dark-green;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.card-input-wrapper {
+  position: relative;
+}
+
+.card-input-wrapper input {
+  padding-right: 50px;
+}
+
+.card-logo {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: auto;
+}
+
+.pay-btn {
+  width: 100%;
+  height: 48px;
+  font-size: 15px;
+  margin-top: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.3s ease;
+}
+
+.success-check {
+  animation: fadeInScale 0.3s ease forwards;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.pay-btn:disabled {
+  filter: brightness(0.95);
+}

@@ -1,0 +1,277 @@
+:host { 
+  position: fixed;             /* fija el componente en la parte superior de la ventana */
+  top: 0; left: 0; right: 0;   /* ocupa todo el ancho arriba */
+  z-index: 1000;               /* por encima del contenido */
+  display: block;              /* asegura que el host se comporte como bloque */
+}
+
+.header {
+  background-color: transparent;     /* fondo transparente sobre el hero */
+  padding: 1.5rem 0;            /* respiración vertical externa (fuera de la “píldora”) */
+  transition: 
+    padding .25s ease, /* suaviza cambios de padding (al compactar, por ejemplo) */
+    background-color .25s ease,
+    box-shadow .25s ease;
+}
+
+/* Contenedor que se convertirá en el rectángulo/píldora */
+.header-inner {
+  max-width: 1240px;           /* ancho máximo centrado */
+  margin: 0 auto;              /* centra el contenido */
+  display: flex;               /* distribuye logo y nav en fila */
+  align-items: center;         /* centra verticalmente */
+  gap: 24px;                   /* separación entre logo y nav */
+  position: relative;
+
+  /* Estado inicial: sin “píldora” (transparente) */
+  background: transparent;   
+  border-radius: 0;        /* borde ultra-redondeado (píldora) */
+  padding: .75rem 1.75rem;     /* relleno interno del contenedor */
+  box-shadow: none;
+  backdrop-filter: none;
+  transition:                  /* transiciones suaves al pasar a modo compacto */
+    background .25s ease,
+    box-shadow .25s ease,
+    padding .25s ease,
+    border-color .25s ease,
+    border-radius .25s ease;
+}
+
+.logo { 
+  display: flex;               /* mantiene el logo alineado con el centro del header */
+  align-items: center; 
+}
+
+.logo img {
+  height: 93px;                /* altura del logo en estado normal */
+  width: auto;                 /* respeta proporción original */
+  filter: grayscale(100%) contrast(220%) brightness(1.1);
+  transition: filter .25s ease; /* suaviza cambio de tamaño/efectos */
+  cursor: pointer;             /* feedback de clic (enlace al top) */
+}
+
+/* HEADER COMPACTO (cuando scrolled = true) */
+.header.compact {
+  background-color: #ffffff;             
+  padding: 1.45rem 0;                       
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+
+  .header-inner {
+    padding: 0 .95rem 0 1.95rem;             
+  }
+
+  .logo img {
+    height: 80px;   
+    filter: grayscale(100%) contrast(100%);                    
+  }
+}
+
+.nav-links {
+  margin-left: auto;           /* empuja la nav a la derecha */
+  display: flex;               /* menú en fila */
+  gap: 26px;                   /* separación entre enlaces */
+  font-family: Arial, Helvetica, sans-serif; /* tipografía del menú */
+}
+
+/* Enlaces con animación suave */
+.nav-links a {
+  position: relative;          /* necesario para el subrayado ::after */
+  text-decoration: none;       /* sin subrayado por defecto */
+  color: #fff;                 /* blanco encima del hero */
+  letter-spacing: .2px;        /* ligera separación de letras */
+
+  /* Transiciones más suaves (color/opacity/transform/kerning) */
+  transition:
+    color .35s ease,
+    opacity .35s ease,
+    transform .35s cubic-bezier(.22,.61,.36,1),
+    letter-spacing .35s ease;
+}
+
+/* Subrayado animado que aparece con suavidad */
+.nav-links a::after {
+  content: "";                 /* pseudo-elemento para la línea */
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;                /* se dibuja por debajo del texto */
+  height: 2px;
+  background: #A8CF41;        /* color verde de acento */
+  transform: scaleX(0);        /* empieza oculto (sin ancho) */
+  transform-origin: 50% 50%;   /* escala desde el centro */
+  transition: transform .45s cubic-bezier(.22,.61,.36,1); /* animación suave */
+  opacity: .95;                /* leve transparencia */
+}
+
+.nav-links a:hover {
+  color: #DFF3A0;              /* tono de hover sobre fondo oscuro */
+  letter-spacing: .25px;       /* micro-animación de tracking */
+}
+.nav-links a:hover::after {
+  transform: scaleX(1);        /* despliega el subrayado al 100% */
+}
+
+/* Feedback rápido al click */
+.nav-links a:active {
+  transform: translateY(1px);  /* pequeño “press” al click */
+  transition-duration: .15s;   /* más rápido para sensación de respuesta */
+}
+
+/* Accesibilidad al tabular */
+.nav-links a:focus-visible {
+  outline: none;                                       /* quita el outline por defecto */
+  box-shadow: 0 0 0 3px rgba(168,207,65,.35);          /* anillo de enfoque accesible */
+  border-radius: 6px;                                   /* esquinas suaves del anillo */
+}
+
+/* Cuando el header está en modo compacto, ajustamos colores */
+.header.compact .nav-links a {
+  color: #1E2A32;             /* enlaces oscuros sobre píldora clara */
+}
+.header.compact .nav-links a:hover { 
+  color: #7aa50a;             /* hover más oscuro sobre fondo claro */
+}
+.header.compact .nav-links a::after {
+  background: #7aa50a;        /* subrayado con contraste adecuado en claro */
+}
+
+.menu-toggle {
+  display: none;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+}
+
+.header.compact .menu-toggle{
+  color: #1E2A32;
+}
+
+.menu-toggle i {
+  font-size: 32px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links a {
+    font-size: 18px;
+    padding: 10px 0;
+  }
+
+  .logo img {
+    height: 60px;
+    margin-left: -5px;
+  }
+
+  .header-inner {
+    padding: .75rem 1rem;
+  }
+}
+
+/* Respeta usuarios con reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .nav-links a,
+  .nav-links a::after {
+    transition: none !important; /* elimina animaciones para accesibilidad */
+  }
+}
+
+
+/* OVERLAY (fondo oscuro) */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+
+/* MENU LATERAL */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -260px; /* oculto */
+  width: 260px;
+  height: 100%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  padding: 100px 20px;
+  gap: 20px;
+  z-index: 1000;
+  transition: right 0.3s ease;
+  box-shadow: -4px 0 20px rgba(0,0,0,0.2);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* CUANDO SE ABRE */
+.side-menu.open {
+  right: 0;
+}
+
+/* LINKS */
+.side-menu a {
+  position: relative;
+  text-decoration: none;
+  color: #1E2A32;
+  font-size: 18px;
+  font-weight: 500;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.side-menu a:hover,
+.side-menu a:active {
+  transform: translateY(5px);
+  color: #7aa50a;
+}
+
+.side-menu a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: #7aa50a;
+  transform: scaleX(0);
+  transition: transform .3s ease;
+}
+
+.side-menu a:hover::after,
+.side-menu a:active::after {
+  transform: scaleX(1);
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
