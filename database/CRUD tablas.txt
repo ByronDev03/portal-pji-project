@@ -1,0 +1,180 @@
+http://localhost:4000/api/health --> VERFICAR QUE EL ENDPOINT BÁSICO ESTE FUNCIONANDO
+
+
+========================================================================= CUSTOMER =============================================================================
+Crear (POST):
+curl -X POST http://localhost:4000/api/customers ^
+  -H "Content-Type: application/json" ^
+  -d "{\"name\":\"Byron Cuenca\",\"email\":\"byronjorge.168@gmail.com\",\"phone\":\"+52 735 182 9788\",\"address\":\"U.H. Piedra Blanca, Cuautla, Mor\",\"active\":true}"
+
+curl -X POST http://localhost:4000/api/customers ^
+  -H "Content-Type: application/json" ^
+  -d "{\"name\":\"Ana Torres\",\"email\":\"anatrs@hotmail.com\",\"phone\":\"+52 55 8194 7699\",\"address\":\"Av. Reforma 123, Cuauhtémoc, CDMX\",\"active\":true}"
+
+curl -X POST http://localhost:4000/api/customers ^
+  -H "Content-Type: application/json" ^
+  -d "{\"name\":\"Victor Gutiérrez\",\"email\":\"victorgtz@yahoo.mx\",\"phone\":\"+52 222 334 4556\",\"address\":\"Av. Juárez #321, Puebla, Puebla\",\"active\":true}"
+
+
+Listar (GET):
+curl http://localhost:4000/api/customers
+
+
+Obtener por id (GET):
+curl http://localhost:4000/api/customers/30b5d9bd-8dd5-4831-a8ca-7fa1adb960f6
+
+
+Actualizar (PUT):
+curl -X PUT http://localhost:4000/api/customers/ca5567d9-3460-4702-9aab-ab7c78d6a3ee ^
+  -H "Content-Type: application/json" ^
+  -d "{\"name\":\"Sergio Gomez\",\"email\":\"rafa.puente@yahoo.mx\",\"phone\":\"771 1053 982\",\"address\":\"Juan Morales, Cuautla, Mor\",\"active\":true}"
+
+
+Eliminar (DELETE):
+curl -X DELETE http://localhost:4000/api/customers/30b5d9bd-8dd5-4831-a8ca-7fa1adb960f6
+==============================================================================================================================================================
+
+
+========================================================================= PRODUCT =============================================================================
+Crear (POST):
+curl -X POST http://localhost:4000/api/products ^
+  -H "Content-Type: application/json" ^
+  -d "{\"name\":\"Esencial\",\"description\":\"Cobertura enfocada en la recuperación del inmueble ante falta de pago, abandono o entrega voluntaria. Incluye intervención extrajucial al primer atraso y acción judicial desde el segundo mes impago.\",\"min_monthly_rent\":3500.000,\"max_monthly_rent\":4949.000,\"active\":true}"
+
+curl -X POST http://localhost:4000/api/products ^
+  -H "Content-Type: application/json" ^
+  -d "{\"name\":\"Premium\",\"description\":\"Incluye todos los beneficios de Esencial y añade acompañamiento legal cuando el inquilino se niega a entregar el inmueble o a formalizar un nuevo acuerdo de arrendamiento.\",\"active\":true}"
+
+curl -X POST http://localhost:4000/api/products ^
+  -H "Content-Type: application/json" ^
+  -d "{\"name\":\"Diamante\",\"description\":\"Integra las coberturas de Esencial y Premium y amplía la protección con recuperación contenciosa de rentas, servicios e intereses moratorios. Requiere fiador con propiedad libre de gravemente.\",\"active\":true}"
+
+
+Listar (GET):
+curl http://localhost:4000/api/products
+
+
+Obtener por id (GET):
+curl http://localhost:4000/api/products/<product_id>
+
+
+Actualizar (PUT):
+curl -X PUT http://localhost:4000/api/products/<product_id> ^
+  -H "Content-Type: application/json" ^
+  -d "{\"name\":\"Protección Diamante\",\"description\":\"Cobertura extendida\",\"active\":false}"
+
+
+Eliminar (DELETE):
+curl -X DELETE http://localhost:4000/api/products/bd90cb9d-0883-4719-a5fd-a1ef6cfe93e9
+==============================================================================================================================================================
+
+
+========================================================================= SESSION ==============================================================================
+Crear (POST):
+curl -X POST http://localhost:4000/api/sessions ^
+  -H "Content-Type: application/json" ^
+  -d "{\"customer_id\":\"b831a6b8-a7e5-4b4d-a490-4c449bc4d3d3\",\"user_agent\":\"Safari/17 macOS\",\"status\":\"active\"}"
+
+curl -X POST http://localhost:4000/api/sessions ^
+  -H "Content-Type: application/json" ^
+  -d "{\"customer_id\":\"583e2f58-e0b6-4fd2-adb1-c6b948fe32ad\",\"user_agent\":\"Safari/17 iOS\",\"status\":\"active\"}"
+
+curl -X POST http://localhost:4000/api/sessions ^
+  -H "Content-Type: application/json" ^
+  -d "{\"customer_id\":\"02a606c7-e398-4f3e-8bde-cb553b61db8b\",\"user_agent\":\"Firefox/120 Ubuntu\",\"status\":\"active\"}" 
+
+
+Listar (GET):
+curl http://localhost:4000/api/sessions
+
+
+Obtener por id (GET):
+curl http://localhost:4000/api/sessions/<session_id>
+
+
+Actualizar (PUT):
+curl -X PUT http://localhost:4000/api/sessions/<session_id> ^
+  -H "Content-Type: application/json" ^
+  -d "{\"user_agent\":\"Safari/119 Win10\",\"status\":\"ended\"}"
+
+
+Eliminar (DELETE):
+curl -X DELETE http://localhost:4000/api/sessions/<session_id>
+===============================================================================================================================================================
+
+
+========================================================================= PAYMENT =============================================================================
+Crear (POST):
+"1626806f-cfc5-441a-a63f-6a1a5f3e072c" compra un SERVICIO (pagado, tarjeta)
+curl -X POST http://localhost:4000/api/payments ^
+  -H "Content-Type: application/json" ^
+  -d "{\"customer_id\":\"9ec12897-e995-45fa-b56a-0abb53cb85f3\",\"product_id\":\"a7f978b8-78fe-4d78-a303-1eec3a1e145c\",\"method\":\"oxxo\"}"
+
+""  paga un SERVICIO (pendiente, transferencia)
+curl -X POST http://localhost:4000/api/payments ^
+  -H "Content-Type: application/json" ^
+  -d "{\"customer_id\":\"583e2f58-e0b6-4fd2-adb1-c6b948fe32ad\",\"amount\":850.00,\"currency\":\"MXN\",\"method\":\"bank\",\"status\":\"pending\",\"external_ref\":\"XFER-001\"}"
+
+"" compra un SERVICIO (fallido)
+curl -X POST http://localhost:4000/api/payments ^
+  -H "Content-Type: application/json" ^
+  -d "{\"customer_id\":\"02a606c7-e398-4f3e-8bde-cb553b61db8b\",\"amount\":499.00,\"currency\":\"MXN\",\"method\":\"card\",\"status\":\"failed\",\"external_ref\":\"PAY-FAIL-01\"}"
+
+
+Listar (GET):
+curl http://localhost:4000/api/payments
+
+
+Obtener por id (GET):
+curl http://localhost:4000/api/payments/<payment_id>
+
+
+Actualizar (PUT):
+curl -X PUT http://localhost:4000/api/payments/0c8722c1-edc2-485f-9f7c-686025c4306f ^
+  -H "Content-Type: application/json" ^
+  -d "{\"customer_id\":\"ebe310f8-41fe-4b78-bf22-7279bd8e7f7b\",\"amount\":3500.00,\"currency\":\"MXN\",\"method\":\"oxxo\",\"status\":\"paid\",\"external_ref\":\"OXXO-225\"}"
+
+
+Eliminar (DELETE):
+curl -X DELETE http://localhost:4000/api/payments/<payment_id>
+==============================================================================================================================================================
+
+ALTER TABLE payment
+ADD CONSTRAINT fk_product_payment
+FOREIGN KEY (product_id) REFERENCES product(product_id);
+
+========================================================================= VERIFICATION =============================================================================
+Crear (POST):
+-- : aprobada
+curl -X POST http://localhost:4000/api/verifications ^
+  -H "Content-Type: application/json" ^
+  -d "{\"customer_id\":\"a8383ee4-93cd-418c-8cd4-2845b2726de1\",\"session_id\":\"b2d4b739-be21-4b95-b3fd-db1e6131c919\",\"payment_id\":\"0c8722c1-edc2-485f-9f7c-686025c4306f\",\"type\":\"sms\",\"status\":\"approved\",\"attempts\":1}"
+
+curl -X POST http://localhost:4000/api/verifications ^
+  -H "Content-Type: application/json" ^
+  -d "{\"customer_id\":\"583e2f58-e0b6-4fd2-adb1-c6b948fe32ad\",\"session_id\":\"aa823acf-0e6b-4019-876a-f90af1bcaa4c\",\"payment_id\":\"3dd39040-b565-43d3-873b-e48b629a1de9\",\"type\":\"sms\",\"status\":\"expired\",\"attempts\":3}"
+
+curl -X POST http://localhost:4000/api/verifications ^
+  -H "Content-Type: application/json" ^
+  -d "{\"customer_id\":\"02a606c7-e398-4f3e-8bde-cb553b61db8b\",\"session_id\":\"5d55043f-244e-41b6-abc8-2f4cd66f08a4\",\"payment_id\":\"51f6267f-e59b-46cf-bd43-af6de41aa825\",\"type\":\"email\",\"status\":\"pending\",\"attempts\":0}"
+
+
+Listar (GET):
+curl http://localhost:4000/api/verifications
+
+
+Obtener por id (GET):
+curl http://localhost:4000/api/verifications/<verification_id>
+
+
+Actualizar (PUT):
+curl -X PUT http://localhost:4000/api/verifications/<verification_id> ^
+  -H "Content-Type: application/json" ^
+  -d "{\"customer_id\":\"583e2f58-e0b6-4fd2-adb1-c6b948fe32ad\",\"session_id\":\"aa823acf-0e6b-4019-876a-f90af1bcaa4c\",\"payment_id\":\"3dd39040-b565-43d3-873b-e48b629a1de9\",\"type\":\"email\",\"status\":\"rejected\",\"attempts\":2}"
+
+
+Eliminar (DELETE):
+curl -X DELETE http://localhost:4000/api/verifications/<verification_id>
+==============================================================================================================================================================
+
+
