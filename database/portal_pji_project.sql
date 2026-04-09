@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 01-03-2026 a las 04:55:25
+-- Tiempo de generación: 09-04-2026 a las 06:09:37
 -- Versión del servidor: 9.1.0
 -- Versión de PHP: 8.3.14
 
@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
 
 INSERT INTO `customer` (`customer_id`, `name`, `email`, `phone`, `address`, `active`, `created_at`, `updated_at`) VALUES
 ('14e436d3-92b4-4d68-9c9e-994f6e43d5c7', 'hvdhdvhdvdh', 'hvchdvhcd@yhao.com', '771717172823939', 'ucvhdcbdjdd', 1, '2026-02-22 01:52:45', '2026-02-22 01:52:45'),
+('189d579f-a39e-4775-92c0-188fd4e516b0', 'Sam Carter', 'sam@yahoo.com', '+525518906789', 'Av. 2 PTE, Puebla', 1, '2026-03-02 00:54:44', '2026-03-02 00:54:44'),
 ('1a89f743-c09c-405e-8692-a4188768680c', 'aaaaaaaaaaaaaa', 'bbci@yaho.com', '7264332920200', 'ncncndnkdd', 1, '2026-02-26 01:01:17', '2026-02-26 01:01:17'),
 ('2b953d1d-ec73-4c02-ab3b-78b343c0365b', 'Alicia Villareal Ocampo', 'alivilla.167@hotmail.com', '+522481536924', 'Mza B Lote 3 Depto 402 Cuautla, Morelos', 1, '2026-02-23 01:00:22', '2026-02-23 01:00:22'),
 ('4c273f96-487b-4ac9-abb7-00c90410bd2a', 'jjjjcbbcicssib', 'cbcywe@hotmail.com', '1727272727888', 'bcbchbvshs', 1, '2026-02-26 01:21:14', '2026-02-26 01:21:14'),
@@ -60,8 +61,11 @@ INSERT INTO `customer` (`customer_id`, `name`, `email`, `phone`, `address`, `act
 ('a254342f-62ef-43b9-a1e3-9d0bfabf4792', 'jbbbcbcbdb', 'bcbcyd@yahoo.com', '18282828282828', 'dbjbjcbsd', 1, '2026-02-26 00:36:54', '2026-02-26 00:36:54'),
 ('ab9ba64b-3c58-4700-bf7f-31df82840e23', 'hahakaksii', 'bchdy@yahoo.com', '1838382020203', 'bcjbcjdbjddd', 1, '2026-02-26 01:12:00', '2026-02-26 01:12:00'),
 ('b831a6b8-a7e5-4b4d-a490-4c449bc4d3d3', 'Lazaro Cardenas', 'lazcar@yahoo.com', '+523311122233', 'Calle Hidalgo #156 Guadalajara, Jal', 1, '2026-02-12 01:46:36', '2026-02-12 01:46:36'),
+('bbbd2776-d9f6-4076-b847-19b8e729e3da', 'ddjdjdjdjdjdj', 'cbdh@gamil.com', '8117162627274', 'incjndjcdeer', 1, '2026-04-06 01:23:12', '2026-04-06 01:23:12'),
 ('e09bf1aa-a66a-4c18-9e0a-45d03bba72d9', 'Martin Rosas Suárez', 'martinrs@gamil.com', '+522205411733', 'Av. Reforma #144 CDMX', 1, '2026-02-23 22:25:27', '2026-02-23 22:25:27'),
-('f7601b22-6d7d-4529-8f80-137727fcf88b', 'jbjbcjdbjcbk', 'bbxbx@yaho.com', '8181828393933', 'nncnccmdkdl', 1, '2026-02-25 00:52:56', '2026-02-25 00:52:56');
+('efd8a760-ade6-4188-a408-fc9ceadb4c42', 'Jose MIguel Cmarena Guzmán', 'josem.172@yahoo.com', '+527741569011', 'Av. Centro #15, Pue, Puebla', 1, '2026-03-23 02:02:11', '2026-03-23 02:02:11'),
+('f7601b22-6d7d-4529-8f80-137727fcf88b', 'jbjbcjdbjcbk', 'bbxbx@yaho.com', '8181828393933', 'nncnccmdkdl', 1, '2026-02-25 00:52:56', '2026-02-25 00:52:56'),
+('fa3383ea-e0a9-4bfb-871b-26651c19c22c', 'kkkkkkkkk', 'hshs@yaho.com', '1616127828282828', 'auauauaa', 1, '2026-04-08 01:26:01', '2026-04-08 01:26:01');
 
 -- --------------------------------------------------------
 
@@ -96,7 +100,9 @@ INSERT INTO `payment` (`payment_id`, `customer_id`, `product_id`, `amount`, `cur
 ('0b7a9141-557d-4c02-8c0c-6aa6b6133ae5', '642573a6-2209-4387-9495-ddd2ed91fc36', 'c59b23f6-9186-4278-ab2d-2f0f95940ddb', 9950.000, 'MXN', 'oxxo', 'paid', 'PJI-1772177073722', '2026-02-27 01:24:34', '2026-02-27 01:24:33', '2026-02-27 01:24:33'),
 ('0ba595eb-6ca4-415a-bc66-37bb16adb7f0', '56c86801-209d-4add-8159-e9945554ee9b', 'a7f978b8-78fe-4d78-a303-1eec3a1e145c', 4950.000, 'MXN', 'oxxo', 'paid', 'PAY-1771964669128', '2026-02-24 14:24:29', '2026-02-24 14:24:29', '2026-02-24 14:24:29'),
 ('23829718-d80b-4fec-9c24-5af925151e11', 'a254342f-62ef-43b9-a1e3-9d0bfabf4792', 'a7f978b8-78fe-4d78-a303-1eec3a1e145c', 4950.000, 'MXN', 'oxxo', 'paid', 'PAY-1772087841810', '2026-02-26 00:37:22', '2026-02-26 00:37:21', '2026-02-26 00:37:21'),
+('55537e06-eade-43ec-be6f-7cc2e00bbb14', '189d579f-a39e-4775-92c0-188fd4e516b0', '882fd9e5-fa31-4777-8cba-78433661f592', 3500.000, 'MXN', 'oxxo', 'paid', 'PJI-1772434543319', '2026-03-02 00:55:43', '2026-03-02 00:55:43', '2026-03-02 00:55:43'),
 ('5a4b212a-23d3-4efe-851b-47be7a71be91', '9ec12897-e995-45fa-b56a-0abb53cb85f3', 'a7f978b8-78fe-4d78-a303-1eec3a1e145c', 7449.500, 'MXN', 'oxxo', 'pending', 'PAY-1771746421100', '0000-00-00 00:00:00', '2026-02-22 01:47:01', '2026-02-22 01:47:01'),
+('5ed37778-087a-424f-9f7e-9fa3ad7a1376', 'fa3383ea-e0a9-4bfb-871b-26651c19c22c', 'c59b23f6-9186-4278-ab2d-2f0f95940ddb', 9950.000, 'MXN', 'oxxo', 'paid', 'PJI-1775633190236', '2026-04-08 01:26:30', '2026-04-08 01:26:30', '2026-04-08 01:26:30'),
 ('71623207-cf7f-4818-90ad-3c9452db3714', '4c273f96-487b-4ac9-abb7-00c90410bd2a', 'c59b23f6-9186-4278-ab2d-2f0f95940ddb', 9950.000, 'MXN', 'oxxo', 'paid', 'PJI-1772090511048', '2026-02-26 01:21:51', '2026-02-26 01:21:51', '2026-02-26 01:21:51'),
 ('a23c267a-a23f-4f58-a61b-833251cee105', '98e8208f-9112-4fde-a123-b5a3a986d506', 'c59b23f6-9186-4278-ab2d-2f0f95940ddb', 9950.000, 'MXN', 'oxxo', 'paid', 'PAY-1771917829989', '2026-02-24 01:23:50', '2026-02-24 01:23:49', '2026-02-24 01:23:50'),
 ('abf1c738-6bfd-42fe-a467-59af9cea7abd', 'ab9ba64b-3c58-4700-bf7f-31df82840e23', 'a7f978b8-78fe-4d78-a303-1eec3a1e145c', 4950.000, 'MXN', 'oxxo', 'paid', 'PAY-1772089942431', '2026-02-26 01:12:22', '2026-02-26 01:12:22', '2026-02-26 01:12:22'),
