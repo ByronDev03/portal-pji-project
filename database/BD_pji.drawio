@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e" pages="2">
     <diagram name="Diseño Conceptual" id="z4hhuo1cIvtusLJda4dj">
-        <mxGraphModel dx="2275" dy="1488" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="2171" dy="1390" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -481,7 +481,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="Ur7p2yoCLx7P6WQfV4F-" name="Diseño Lógico">
-        <mxGraphModel dx="1933" dy="1830" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="3735" dy="2295" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
