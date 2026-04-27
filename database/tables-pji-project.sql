@@ -70,7 +70,8 @@ CREATE TABLE product (
 /* ======================================= SESSION ======================================== */
 CREATE TABLE session (
   session_id     CHAR(36)       NOT NULL,                 
-  customer_id    CHAR(36)       NOT NULL,                                                                   
+  customer_id    CHAR(36)       NOT NULL,   
+  ip_address     VARCHAR(45)    NOT NULL,                                                            
   user_agent     VARCHAR(255)   NOT NULL,                                       
   status         VARCHAR(20)    NOT NULL DEFAULT 'active',           
   started_at     DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP,  
@@ -87,19 +88,19 @@ CREATE TABLE session (
 /* =========================== PAYMENT ========================= */
 CREATE TABLE payment (
   payment_id     CHAR(36)       NOT NULL,  
-  customer_id     CHAR(36)       NOT NULL,                 
+  customer_id    CHAR(36)       NOT NULL,                 
   product_id     CHAR(36)       NOT NULL,                                                                    
   amount         DECIMAL(10,3)  NOT NULL CHECK (amount >= 0),        
   currency       CHAR(3)        NOT NULL DEFAULT 'MXN',             
   method         VARCHAR(30)    NOT NULL,                            
   status         VARCHAR(20)    NOT NULL DEFAULT 'pending',          
   external_ref   VARCHAR(100)   NOT NULL,                                       
-  paid_at        DATETIME       NOT NULL,                                          
+  paid_at        DATETIME       NULL,                                          
   created_at     DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at     DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   PRIMARY KEY (payment_id), 
   CONSTRAINT fk_payment_customer
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
   CONSTRAINT fk_payment_product
     FOREIGN KEY (product_id) REFERENCES product(product_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

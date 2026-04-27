@@ -29,7 +29,7 @@ export class Payment
   external_ref!: string;
 
   @Column({ type: 'datetime', nullable: true }) 
-  paid_at!: Date | null;
+  paid_at!: Date;
 
   @CreateDateColumn({ type: 'datetime' }) 
   created_at!: Date;

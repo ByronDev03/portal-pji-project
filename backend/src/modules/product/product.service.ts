@@ -12,7 +12,11 @@ import { UpdateProductDto } from '@/modules/product/dtos/update-product.dto';
 
 // Lista todos los productos incluyendo la relación con customer.
 export async function findAllProducts() {
-  return AppDataSource.getRepository(Product).find();
+  return AppDataSource.getRepository(Product).find({
+    order: {
+      min_monthly_rent: 'ASC'
+    }
+  });
 }
 
 // Busca un producto por su ID, incluyendo su customer relacionado.
