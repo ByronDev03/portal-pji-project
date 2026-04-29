@@ -121,6 +121,8 @@ CREATE TABLE verification (
 
 ### Database Schema
 
+This section defines the database schema, detailing each table, its fields, data types, constraints, and their role within the overall system architecture.
+
 - **Tabla CUSTOMER:** Representa a la persona / empresa que usa la plataforma.
 
 |       CAMPO      |                      TIPO                       |                                 DESCRIPCIÓN                                 |
