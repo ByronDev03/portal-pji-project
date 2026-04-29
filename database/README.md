@@ -24,7 +24,7 @@ This sections presents the database design across its three main layers: concept
 <summary>Logical Design (Relational Model)</summary>
 
 <div align="center">
-    <img src="logical-design.png" width="600" alt="model relational"/>
+    <img src="BD_pji-Diseño Lógico.drawio.png" width="600" alt="model relational"/>
 </div>
 </details>
 
