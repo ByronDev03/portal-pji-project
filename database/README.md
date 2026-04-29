@@ -2,6 +2,14 @@
 
 This document describes the database structure, relationships, and design decisions for the Portal PJI.
 
+### Overview
+This database models the core flow of a policy subscription platform. It supports.
+- Customer registration and management
+- Product (policy plans) catalog
+- Payment processing and tracking
+- Session handling for user interactions
+- Verifications processes for identity and payment validation
+
 ### Database Design Layers
 
 This sections presents the database design across its three main layers: conceptual, logical and physical.
@@ -16,7 +24,7 @@ This sections presents the database design across its three main layers: concept
 <summary>Logical Design (Relational Model)</summary>
 
 <div align="center">
-    <img src="logical-design.svg" width="600" alt="model relational"/>
+    <img src="logical-design.png" width="600" alt="model relational"/>
 </div>
 </details>
 
@@ -110,6 +118,8 @@ CREATE TABLE verification (
 </details>
 
 ---
+
+### Database Schema
 
 - **Tabla CUSTOMER:** Representa a la persona / empresa que usa la plataforma.
 
