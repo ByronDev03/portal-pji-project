@@ -2,26 +2,26 @@
 
 This document describes the database structure, relationships, and design decisions for the Portal PJI.
 
----
+### Database Design Layers
 
-<h1 align="center">Diagrams</h1>
+This sections presents the database design across its three main layers: conceptual, logical and physical.
 
 <details>
-<summary>Diseño conceptual</summary>
+<summary>Conceptual Design (ER Diagram)</summary>
 
 <img src="" width="600" alt=""/>
 </details>
 
 <details>
-<summary>Diseño lógico</summary>
+<summary>Logical Design (Relational Model)</summary>
 
 <div align="center">
-    <img src="BD_pji-Diseño Lógic1o.drawio.png" width="600" alt="model relational"/>
+    <img src="BD_pji-Diseño Lógico.drawio.png" width="600" alt="model relational"/>
 </div>
 </details>
 
 <details>
-<summary>Diseño físico</summary>
+<summary>Physical Design (SQL Schema)</summary>
 
 ```sql
 CREATE DATABASE portal_pji_project; -- Crea la base de datos llamada `portal_pji_project`
@@ -188,7 +188,8 @@ CREATE TABLE verification (
 | `updated_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | |
 
 ---
-<h1 align="center">Entity Relationships</h1>
+
+### Entity Relationships
 
 The following section describes the relationships between entities, including foreign keys and cardinality.
 
