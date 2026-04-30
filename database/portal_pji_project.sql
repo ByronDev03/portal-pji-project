@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `method` varchar(30) NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'pending',
   `external_ref` varchar(100) NOT NULL,
-  `paid_at` datetime NOT NULL,
+  `paid_at` datetime NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`payment_id`),

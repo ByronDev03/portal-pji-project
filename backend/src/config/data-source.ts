@@ -14,7 +14,7 @@ export const AppDataSource = new DataSource(
   username: process.env.DB_USER ?? 'root',
   password: process.env.DB_PASS ?? '',
   database: process.env.DB_NAME ?? 'portal_pji_project',
-  synchronize: true, // útil en desarrollo. En producción usa migrations.
+  synchronize: false, // útil en desarrollo. En producción usa migrations.
   logging: false,
   entities: [
     Customer,
