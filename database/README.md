@@ -17,14 +17,16 @@ This sections presents the database design across its three main layers: concept
 <details>
 <summary>Conceptual Design (ER Diagram)</summary>
 
-<img src="" width="600" alt=""/>
+<div align="center">
+    <img src="conceptual-design.png" width="600" alt="er relational"/>
+</div>
 </details>
 
 <details>
 <summary>Logical Design (Relational Model)</summary>
 
 <div align="center">
-    <img src="logical-design.png" width="600" alt="model relational"/>
+    <img src="logical-design.png" width="600" alt="relational model"/>
 </div>
 </details>
 
