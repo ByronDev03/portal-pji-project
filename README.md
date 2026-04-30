@@ -28,7 +28,7 @@ Portal PJI is a platform designed to manage customer registration, identity veri
 
 The application follows a layered architecture:
 - Frontend (Angular) for user interaction
-- Backend (Node.js + Express.js) fro API and business logic
+- Backend (Node.js + Express.js) for API and business logic
 - Database (MySQL) fro persistent storage
 - Docker for containerization
 - AWS EC2 for deployment
