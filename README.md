@@ -37,13 +37,13 @@ The application follows a layered architecture:
 
 The project is organized into separate modules:
 
-**Frontend** → [View documentation](./frontend)
+**Frontend** → [View documentation](./frontend) <br>
 Handles user interaction, including onboarding, plan selection, and payment flows.  
 
-**Backend** → [View documentation](./backend)
+**Backend** → [View documentation](./backend) <br>
 Provides REST APIs, business logic, and integrations for verification and payments.  
 
-**Database** → [View documentation](./database)
+**Database** → [View documentation](./database) <br>
 Manages persistent data with a relational schema designed for scalability.  
 
 ## Features
