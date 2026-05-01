@@ -125,41 +125,41 @@ CREATE TABLE verification (
 
 This section defines the database schema, detailing each table, its fields, data types, constraints, and their role within the overall system architecture.
 
-- **Tabla CUSTOMER:** Representa a la persona / empresa que usa la plataforma.
+- **Customer Table:** Representa al usuario que usa la plataforma.
 
 |       CAMPO      |                      TIPO                       |                                 DESCRIPCIÓN                                 |
 |       ----       |                      ----                       |                                    ----                                     |
-| `customer_id`    | CHAR(36) NOT NULL (PK)                          | Identificador único del cliente generado como UUID. Se utiliza para garantizar unicidad global y facilitar la integración entre servicios sin depender de secuencias numéricas.|
+| `customer_id`    | CHAR(36) NOT NULL `(PK)`                        | Identificador único del cliente generado como UUID. Se utiliza para garantizar unicidad global y facilitar la integración entre servicios sin depender de secuencias numéricas.|
 | `name`           | VARCHAR(100) NOT NULL                           | Nombre completo del cliente. Se utiliza para identificación en el sistema y personalización de la experiencia. Se define como VARCHAR para soportar distintas longitudes de nombres.|
 | `email`          | VARCHAR(100) NOT NULL                           | Dirección de correo electrónico del cliente. Utilizada para autenticación, notificaciones y recuperación de cuenta. Se define como VARCHAR para permitir diferentes longitudes y formatos válido.|
 | `phone`          | VARCHAR(25)  NOT NULL                           | Almacena el número de contacto del cliente. Se utiliza para comunicación y posibles procesos de verificación. se define como VARCHAR para soportar distintos formatos internacionales.|
 | `address`        | VARCHAR(100) NOT NULL                           | Dirección física del cliente. Se utiliza para validación de información, procesos administrativos o generación de documentación. Se define como VARCHAR para permitir distintos formatos de dirección sin estructura rígida.|
-| `active`         | TINYINT(1) DEFAULT 1  NOT NULL                  | ndica si el cliente está activo en el sistema (1 = activo, 0 = inactivo). Se utiliza para implementar soft delete sin eliminar registros físicamente. Se define como TINYINT(1) ya que MySQL no cuenta con un tipo boolean nativo, utilizando este formato como representación eficiente de valores booleanos.|
+| `active`         | TINYINT(1) DEFAULT 1  NOT NULL                  | Indica si el cliente está activo en el sistema (1 = activo, 0 = inactivo). Se utiliza para implementar soft delete sin eliminar registros físicamente. Se define como TINYINT(1) ya que MySQL no cuenta con un tipo boolean nativo, utilizando este formato como representación eficiente de valores booleanos.|
 | `created_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de creación del registro. Permite auditoría y seguimiento del ciclo de vida del cliente en el sistema.|
 | `updated_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de última actualización del registro. Se utiliza para control de cambios y sincronización de datos.|
 
 ---
 
-- **Tabla PRODUCT:** Catálogo de los planes disponibles (p. ej., Esencial, Premium, Diamante.) con tarifa.
+- **Product Table:** Catálogo de los planes disponibles (p. ej., Esencial, Premium, Diamante.) que el usuario puede contratar dentro de la plataforma. 
 
 |       CAMPO        |                      TIPO                       |                                 DESCRIPCIÓN                                 |
 |       ----         |                      ----                       |                                    ----                                     |
-| `product_id`       | CHAR(36) NOT NULL (PK)                          | |
-| `name`             | VARCHAR(150) NOT NULL                           | |
-| `description`      | VARCHAR(255) NOT NULL                           | |
-| `min_monthly_rent` | DECIMAL(10,3) NOT NULL                          | |
-| `max_monthly_rent` | DECIMAL(10,3) NOT NULL                          | |
-| `active`           | TINYINT(1) DEFAULT 1 NOT NULL                   | |
-| `created_at`       | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | |
-| `updated_at`       | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | |
+| `product_id`       | CHAR(36) NOT NULL `(PK)`                        | Identificador único del producto generado como UUID. Permite identificar cada plan de forma independiente en el sistema.|
+| `name`             | VARCHAR(150) NOT NULL                           | Nombre del producto o plan. Se utiliza para mostrar opciones al usuario en la interfaz.|
+| `description`      | VARCHAR(255) NOT NULL                           | Descripción del plan y sus beneficios.|
+| `min_monthly_rent` | DECIMAL(10,3) NOT NULL                          | Valor mínimo de renta permitido para aplicar al plan.|
+| `max_monthly_rent` | DECIMAL(10,3) NOT NULL                          | Valor máximo de renta permitido para el plan.|
+| `active`           | TINYINT(1) DEFAULT 1 NOT NULL                   | Indica si el producto está disponible para contratación. Permite desactivar planes sin eliminarlos de la base de datos.|
+| `created_at`       | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de creación del producto. Permite auditoría y control histórico.|
+| `updated_at`       | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de ultima actualización del producto. Se usa para control de cambios en el catálogo.|
 
 ---
-- **Tabla SESSION:** Sesiones de autenticación/uso (seguridad y auditoría).
+- **Session Table:** Registra las sesiones de usuario para auditoría, trazabilidad y seguridad.
     
 |       CAMPO      |                      TIPO                       |                                 DESCRIPCIÓN                                 |
 |       ----       |                      ----                       |                                    ----                                     |
-| `session_id`     | CHAR(36) NOT NULL (PK)                          | |
-| `customer_id`    | CHAR(36) NOT NULL (FK)                          | |
+| `session_id`     | CHAR(36) NOT NULL `(PK)`                        | Identificador único de la sesión generado como UUID. Permite rastrear interacciones del usuario.|
+| `customer_id`    | CHAR(36) NOT NULL `(FK)`                        | Referencia al cliente asociado a la sesión. Permite identificar quién inició la sesión.|
 | `ip_address`     | VARCHAR(45) NOT NULL                            | |
 | `user_agent`     | VARCHAR(255) NOT NULL                           | |
 | `status`         | VARCHAR(20) NOT NULL DEFAULT 'active'           | |
@@ -169,12 +169,13 @@ This section defines the database schema, detailing each table, its fields, data
 | `updated_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | |
 
 ---
-- **Tabla PAYMENT:** Transacciones monetarias realizadas por un cliente.
+- **Payment Table:** Registra las transacciones monetarias realizadas por los clientes al contratar un plan.
 
 |       CAMPO      |                      TIPO                       |                                 DESCRIPCIÓN                                 |
 |       ----       |                      ----                       |                                    ----                                     |
-| `session_id`     | CHAR(36) NOT NULL (PK)                          | |
-| `customer_id`    | CHAR(36) NOT NULL (FK)                          | |
+| `payment_id`     | CHAR(36) NOT NULL `(PK)`                        | Identificador único del pago generado como UUID. Permite ratrear cada transacción de forma independiente.|
+| `customer_id`    | CHAR(36) NOT NULL `(FK)`                        | Referencia al cliente que realiza el pago. Se utiliza para relacionar pagos con usuarios.|
+| `product_id`     | CHAR(36) NOT NULL `(FK)`                        | Referencia al producto adquirido. Permite identificar qué plan fue contratado.|
 | `amount`         | DECIMAL(10,3) NOT NULL                          | |
 | `currency`       | CHAR(3) NOT NULL DEFAULT 'MXN'                  | |
 | `method`         | VARCHAR(30) NOT NULL                            | |
@@ -185,16 +186,16 @@ This section defines the database schema, detailing each table, its fields, data
 | `updated_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | |
 
 ---
-- **Tabla VERIFICATION:** Flujo de verificación/validación (OTP/2FA, KYC, biometría).
+- **Verification Table:** Gestiona los procesos de verificación del usuario y validación de pagos.
 
 |       CAMPO      |                      TIPO                       |                                 DESCRIPCIÓN                                 |
 |       ----       |                      ----                       |                                    ----                                     |
-| `verification_id`| CHAR(36) NOT NULL (PK)                          | |
-| `customer_id`    | CHAR(36) NOT NULL (FK)                          | |
-| `session_id`     | CHAR(36) NOT NULL (FK)                          | |
-| `payment_id`     | CHAR(36) NOT NULL (FK)                          | |
+| `verification_id`| CHAR(36) NOT NULL `(PK)`                        | Identificador único de la verificación generado como UUID. Permite rastrear cada intento o proceso de validación.|
+| `customer_id`    | CHAR(36) NOT NULL `(FK)`                        | Referencia al cliente asociado a la verificación. Permite identificar a quién pertenece el proceso.|
+| `session_id`     | CHAR(36) NOT NULL `(FK)`                        | Referencia a la sesión en la que ocurre la verificación. Permite contextualizar el evento dentro de una interacción.|
+| `payment_id`     | CHAR(36) NOT NULL `(FK)`                        | Referencia al pago asociado. Permite validar transacciones específcas|
 | `type`           | VARCHAR(50) NOT NULL                            | |
-| `status`         | VARCHAR(50) NOT NULL                            | |
+| `status`         | VARCHAR(50) NOT NULL                            | Estado de la verificación (pending, approved, rejected, expired). Permite controlar el resultado del proceso.|
 | `attempts`       | INT NOT NULL DEFAULT 0                          | |
 | `expires_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | |
 | `verified_at`    | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | |
@@ -232,7 +233,7 @@ The following section describes the relationships between entities, including fo
     - **FK:** verification.session_id → session.session.id
     - **Descripción:** Una `session` puede tener múltiples `verifications` (intentos, validaciones), una `verification` pertenece a una `session`.
 
-- **Payment (1 : N )Verification**
+- **Payment (1 : N ) Verification**
     - **Relación:** One-to-Many
     - **FK:** verification.payment_id → payment.payment.id
     - **Descripción:** Un `payment` puede tener múltiples `verifications`, cada `verification` corrsponde a un solo `payment`.
