@@ -125,82 +125,83 @@ CREATE TABLE verification (
 
 This section defines the database schema, detailing each table, its fields, data types, constraints, and their role within the overall system architecture.
 
-- **Customer Table:** Representa al usuario que usa la plataforma.
+- **Customer Table:** Represents the user of the platform.
 
-|       CAMPO      |                      TIPO                       |                                 DESCRIPCIÓN                                 |
-|       ----       |                      ----                       |                                    ----                                     |
-| `customer_id`    | CHAR(36) NOT NULL `(PK)`                        | Identificador único del cliente generado como UUID. Se utiliza para garantizar unicidad global y facilitar la integración entre servicios sin depender de secuencias numéricas.|
-| `name`           | VARCHAR(100) NOT NULL                           | Nombre completo del cliente. Se utiliza para identificación en el sistema y personalización de la experiencia. Se define como VARCHAR para soportar distintas longitudes de nombres.|
-| `email`          | VARCHAR(100) NOT NULL                           | Dirección de correo electrónico del cliente. Utilizada para autenticación, notificaciones y recuperación de cuenta. Se define como VARCHAR para permitir diferentes longitudes y formatos válido.|
-| `phone`          | VARCHAR(25)  NOT NULL                           | Almacena el número de contacto del cliente. Se utiliza para comunicación y posibles procesos de verificación. se define como VARCHAR para soportar distintos formatos internacionales.|
-| `address`        | VARCHAR(100) NOT NULL                           | Dirección física del cliente. Se utiliza para validación de información, procesos administrativos o generación de documentación. Se define como VARCHAR para permitir distintos formatos de dirección sin estructura rígida.|
-| `active`         | TINYINT(1) DEFAULT 1  NOT NULL                  | Indica si el cliente está activo en el sistema (1 = activo, 0 = inactivo). Se utiliza para implementar soft delete sin eliminar registros físicamente. Se define como TINYINT(1) ya que MySQL no cuenta con un tipo boolean nativo, utilizando este formato como representación eficiente de valores booleanos.|
-| `created_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de creación del registro. Permite auditoría y seguimiento del ciclo de vida del cliente en el sistema.|
-| `updated_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de última actualización del registro. Se utiliza para control de cambios y sincronización de datos.|
+|    FIELD      |                       TYPE                  |                                                    DESCRIPTION |
+|    ------     |                      ------                 |                                                   -------------|
+| `customer_id` | CHAR(36) NOT NULL `(PK)`          | Unique identifier of the customer generated as a UUID. Ensures global uniqueness and supports distributed systems without relying on auto-increment sequences. |
+| `name`        | VARCHAR(100) NOT NULL                       | Full name of the customer. Used for identification and personalization within the system. |
+| `email`       | VARCHAR(100) NOT NULL                       | Customer's email address. Used for authentication, notifications, and account recovery. |
+| `phone`       | VARCHAR(25) NOT NULL                        | Customer's contact number. Used for communication and verification processes. |
+| `address`     | VARCHAR(100) NOT NULL                       | Customer's physical address. Used for validation, administrative processes, or document generation. |
+| `active`      | TINYINT(1) DEFAULT 1 NOT NULL     | Indicates whether the customer is active (1 = active, 0 = inactive). Used to implement soft deletion without removing records. |
+| `created_at`  | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP | Record creation timestamp for auditing and lifecycle tracking.|
+| `updated_at`  | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP | Last update timestamp for change tracking and synchronization.|
+
+---
+
+- **Product Table:** Catalog of available plans (e.g., Essential, Premium, Diamond) that users can purchase within the platform.
+
+|    FIELD           |            TYPE                             |                                         DESCRIPTION                                                             |
+|    ------          |           ------                            |                                        -------------                                                            |
+| `product_id`       | CHAR(36) NOT NULL `(PK)`                 | Unique identifier of the product generated as a UUID. Allows independent identification of each plan in the system.|
+| `name`             | VARCHAR(150) NOT NULL                       | Name of the product or plan. Used to display options in the user interface.                                     |
+| `description`      | VARCHAR(255) NOT NULL                       | Description of the plan and its benefits.                                                                       |
+| `min_monthly_rent` | DECIMAL(10,3) NOT NULL                      | Minimum allowed rent value for this plan.                                                                       |
+| `max_monthly_rent` | DECIMAL(10,3) NOT NULL                      | Maximum allowed rent value for this plan.                                                                       |
+| `active`           | TINYINT(1) DEFAULT 1 NOT NULL               | Indicates whether the product is available for purchase. Allows deactivation without deleting records.          |
+| `created_at`       | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP | Product creation timestamp for auditing purposes.                                                               |
+| `updated_at`       | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP | Last update timestamp for tracking changes in the catalog.                                                      |
 
 ---
 
-- **Product Table:** Catálogo de los planes disponibles (p. ej., Esencial, Premium, Diamante.) que el usuario puede contratar dentro de la plataforma. 
-
-|       CAMPO        |                      TIPO                       |                                 DESCRIPCIÓN                                 |
-|       ----         |                      ----                       |                                    ----                                     |
-| `product_id`       | CHAR(36) NOT NULL `(PK)`                        | Identificador único del producto generado como UUID. Permite identificar cada plan de forma independiente en el sistema.|
-| `name`             | VARCHAR(150) NOT NULL                           | Nombre del producto o plan. Se utiliza para mostrar opciones al usuario en la interfaz.|
-| `description`      | VARCHAR(255) NOT NULL                           | Descripción del plan y sus beneficios.|
-| `min_monthly_rent` | DECIMAL(10,3) NOT NULL                          | Valor mínimo de renta permitido en el plan. |
-| `max_monthly_rent` | DECIMAL(10,3) NOT NULL                          | Valor máximo de renta permitido en el plan.|
-| `active`           | TINYINT(1) DEFAULT 1 NOT NULL                   | Indica si el producto está disponible para contratación. Permite desactivar planes sin eliminarlos de la base de datos.|
-| `created_at`       | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de creación del producto. Permite auditoría y control histórico.|
-| `updated_at`       | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de ultima actualización del producto. Se usa para control de cambios en el catálogo.|
-
----
-- **Session Table:** Registra las sesiones de usuario para auditoría, trazabilidad y seguridad.
+- **Session Table:** Stores user sessions for auditing, traceability, and security purposes.
     
-|       CAMPO      |                      TIPO                       |                                 DESCRIPCIÓN                                 |
-|       ----       |                      ----                       |                                    ----                                     |
-| `session_id`     | CHAR(36) NOT NULL `(PK)`                        | Identificador único de la sesión generado como UUID. Permite rastrear interacciones del usuario.|
-| `customer_id`    | CHAR(36) NOT NULL `(FK)`                        | Referencia al cliente asociado a la sesión. Permite identificar quién inició la sesión.|
-| `ip_address`     | VARCHAR(45) NOT NULL                            | Dirección IP del usuario (compatible con IPv4 e IPv6).|
-| `user_agent`     | VARCHAR(255) NOT NULL                           | Información del navegador/dispositivo del usuario.|
-| `status`         | VARCHAR(20) NOT NULL DEFAULT 'active'           | Estado de la sesión (active, ended, revoked).|
-| `started_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Momento en que inicia la sesión.|
-| `ended_at`       | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Momento en que finaliza la sesión.|
-| `created_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de creación de la sesión.|
-| `updated_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de última actualización de la sesión.|
+|       FIELD      |                      TYPE                       |                                                DESCRIPTION                                               |
+|       ----       |                      ----                       |                                                   ----                                                   |
+| `session_id`     | CHAR(36) NOT NULL `(PK)`                        | Unique identifier of the session generated as a UUID. Used to track user interactions within the system. |
+| `customer_id`    | CHAR(36) NOT NULL `(FK)`                        | Reference to the customer associated with the session. Identifies who initiated the session.             |
+| `ip_address`     | VARCHAR(45) NOT NULL                            | User's IP address (supports both IPv4 and IPv6 formats).                                                 |
+| `user_agent`     | VARCHAR(255) NOT NULL                           | Information about the user's browser or device.                                                          |
+| `status`         | VARCHAR(20) NOT NULL DEFAULT 'active'           | Session status (e.g., active, ended, revoked).                                                           |
+| `started_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Timestamp when the session starts.                                                                       |
+| `ended_at`       | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Timestamp when the session ends.                                                                         |
+| `created_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Record creation timestamp for auditing purposes.                                                         |
+| `updated_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Last update timestamp of the session record.                                                             |
 
 ---
-- **Payment Table:** Registra las transacciones monetarias realizadas por los clientes al contratar un plan.
+- **Payment Table:** Stores monetary transactions made by customers when purchasing a plan.
 
-|       CAMPO      |                      TIPO                       |                                 DESCRIPCIÓN                                 |
-|       ----       |                      ----                       |                                    ----                                     |
-| `payment_id`     | CHAR(36) NOT NULL `(PK)`                        | Identificador único del pago generado como UUID. Permite ratrear cada transacción de forma independiente.|
-| `customer_id`    | CHAR(36) NOT NULL `(FK)`                        | Referencia al cliente que realiza el pago. Se utiliza para relacionar pagos con usuarios.|
-| `product_id`     | CHAR(36) NOT NULL `(FK)`                        | Referencia al producto adquirido. Permite identificar qué plan fue contratado.|
-| `amount`         | DECIMAL(10,3) NOT NULL                          | Monto pagado. DECIMAL evita errores de precisión en valores monetarios|
-| `currency`       | CHAR(3) NOT NULL DEFAULT 'MXN'                  | Indica la moneda del pago (eje. MXN).|
-| `method`         | VARCHAR(30) NOT NULL                            | Método de pago (card, oxxo, etc.).|
-| `status`         | VARCHAR(20) NOT NULL DEFAULT 'pending'          | Indica el estado del pago pending, paid, failed, refunded.|
-| `external_ref`   | VARCHAR(100) NULL                               | Identificador del proveedor externo (ej. Stripe)|
-| `paid_at`        | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha en que se completó el pago.|
-| `created_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de creación del pago|
-| `updated_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de última actualización del pago.|
+|       FIELD      |                      TYPE                       |                                 DESCRIPCIÓN                                                         |
+|       ----       |                      ----                       |                                    ----                                                             |
+| `payment_id`     | CHAR(36) NOT NULL `(PK)`                        | Unique identifier of the payment generated as a UUID. Used to track each transaction independently. |
+| `customer_id`    | CHAR(36) NOT NULL `(FK)`                        | Reference to the customer who made the payment.                                                     |
+| `product_id`     | CHAR(36) NOT NULL `(FK)`                        | Reference to the purchased product (plan).                                                          |
+| `amount`         | DECIMAL(10,3) NOT NULL                          | Payment amount. DECIMAL is used to ensure precision in financial values.                            |
+| `currency`       | CHAR(3) NOT NULL DEFAULT 'MXN'                  | Currency of the payment (e.g., MXN), following ISO standards.                                       |
+| `method`         | VARCHAR(30) NOT NULL                            | Payment method (e.g., card, oxxo, transfer).                                                        |
+| `status`         | VARCHAR(20) NOT NULL DEFAULT 'pending'          | Payment status (e.g., pending, paid, failed, refunded).                                             |
+| `external_ref`   | VARCHAR(100) NULL                               | Identifier from an external payment provider (e.g., Stripe).                                        |
+| `paid_at`        | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Timestamp when the payment was completed.                                                           |
+| `created_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Record creation timestamp.                                                                          |
+| `updated_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Last update timestamp of the payment.                                                               |
 
 ---
-- **Verification Table:** Gestiona los procesos de verificación del usuario y validación de pagos.
+- **Verification Table:** Manages user verification processes and payment validation workflows. 
 
-|       CAMPO      |                      TIPO                       |                                 DESCRIPCIÓN                                 |
-|       ----       |                      ----                       |                                    ----                                     |
-| `verification_id`| CHAR(36) NOT NULL `(PK)`                        | Identificador único de la verificación generado como UUID. Permite rastrear cada intento o proceso de validación.|
-| `customer_id`    | CHAR(36) NOT NULL `(FK)`                        | Referencia al cliente asociado a la verificación. Permite identificar a quién pertenece el proceso.|
-| `session_id`     | CHAR(36) NOT NULL `(FK)`                        | Referencia a la sesión en la que ocurre la verificación. Permite contextualizar el evento dentro de una interacción.|
-| `payment_id`     | CHAR(36) NOT NULL `(FK)`                        | Referencia al pago asociado. Permite validar transacciones específcas|
-| `type`           | VARCHAR(50) NOT NULL                            | Tipo de verificación (OTP, KYC, biometría).|
-| `status`         | VARCHAR(50) NOT NULL                            | Estado de la verificación (pending, approved, rejected, expired). Permite controlar el resultado del proceso.|
-| `attempts`       | INT NOT NULL DEFAULT 0                          | Número de intentos realizados. INT permite valores numéricos eficientes. En el sistema se usa para limitar intentos y seguridad.|
-| `expires_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de expiración del proceso.|
-| `verified_at`    | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha en que se completó la verificación.|
-| `created_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de creación del registro.|
-| `updated_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP     | Fecha de última actualización del registro.|
+|       CAMPO      |                      TYPE                    |                                    DESCRIPTION                                                            |
+|       ----       |                      ----                    |                                       ----                                                                |
+| `verification_id`| CHAR(36) NOT NULL `(PK)`                     | Unique identifier of the verification process generated as a UUID. Used to track each validation attempt. |
+| `customer_id`    | CHAR(36) NOT NULL `(FK)`                     | Reference to the customer associated with the verification.                                               |
+| `session_id`     | CHAR(36) NOT NULL `(FK)`                     | Reference to the session where the verification occurs.                                                   |
+| `payment_id`     | CHAR(36) NOT NULL `(FK)`                     | Reference to the associated payment. Used to validate specific transactions.                              |
+| `type`           | VARCHAR(50) NOT NULL                         | Type of verification (e.g., OTP, KYC, biometric).                                                         |
+| `status`         | VARCHAR(50) NOT NULL                         | Verification status (e.g., pending, approved, rejected, expired).                                         |
+| `attempts`       | INT NOT NULL DEFAULT 0                       | Number of verification attempts. Used to enforce security limits.                                         |
+| `expires_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP  | Expiration timestamp of the verification process.                                                         |
+| `verified_at`    | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP  | Timestamp when the verification was successfully completed.                                               |
+| `created_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP  | Record creation timestamp.                                                                                |
+| `updated_at`     | DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP  | Last update timestamp of the verification record.                                                         |
 
 ---
 
